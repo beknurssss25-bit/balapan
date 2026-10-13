@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="kk" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Балапан — балаларға арналған ойындар</title>
+<meta name="description" content="3–7 жастағы балаларға арналған қазақша оқу ойындары">
+<link rel="icon" href="images/chick.svg"><link rel="stylesheet" href="fonts/fonts.css"><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<a class="skip" href="#main">Мазмұнға өту</a>
+<header class="topbar"><a href="#top" class="brand"><img src="images/chick.svg" alt="" width="40" height="40"><span>Балапан</span></a>
+<div class="tools"><button class="pill stars" id="starBtn" aria-label="Жұлдыздарым"><img src="images/star.svg" alt="" width="24" height="24"><b id="starCount">0</b></button>
+<button class="pill icon" id="soundBtn" aria-pressed="true" aria-label="Дыбыс">🔊</button>
+<button class="pill icon" id="themeBtn" aria-label="Түнгі режим">🌙</button></div></header>
+<div class="progress" id="scrollBar"></div>
+<section class="hero" id="top"><div class="hero-text"><span class="tag">3–7 жас · Қазақ тілінде</span>
+<h1>Ойна, үйрен,<br><em>қуан!</em></h1><p>Әріптер, сандар, түстер, жануарлар, ертегілер — бәрі бір жерде. Әр дұрыс жауап үшін жұлдыз жина!</p>
+<a href="#games" class="cta">Ойынды бастау ✨</a></div><img class="hero-img" src="images/hero.svg" alt="Балапан жасыл шалғында"></section>
+<main id="main">
+<nav id="games" class="tiles reveal" aria-label="Ойындар">
+<a href="#alpha"><img src="images/icon-alphabet.svg" alt="">Әліпби</a><a href="#numbers"><img src="images/icon-numbers.svg" alt="">Сандар</a>
+<a href="#colors"><img src="images/icon-colors.svg" alt="">Түстер</a><a href="#animals"><img src="images/icon-animals.svg" alt="">Жануарлар</a>
+<a href="#memory"><img src="images/icon-memory.svg" alt="">Жұбын тап</a><a href="#draw"><img src="images/icon-draw.svg" alt="">Сурет сал</a>
+<a href="#match"><img src="images/icon-match.svg" alt="">Сәйкестендір</a><a href="#math"><img src="images/icon-math.svg" alt="">Есептеу</a>
+<a href="#opposites"><img src="images/icon-opposites.svg" alt="">Қарама-қарсы</a><a href="#story"><img src="images/icon-story.svg" alt="">Ертегі</a>
+<a href="#parents"><img src="images/icon-parents.svg" alt="">Ата-аналарға</a></nav>
+
+<section id="alpha" class="card reveal" style="--accent:#339AF0"><div class="head"><img src="images/icon-alphabet.svg" alt=""><div><h2>Қазақ әліпбиі</h2><p>42 әріп. Әріпті бас — сөзді көр де, тыңда!</p></div></div>
+<div id="letterShow" class="show"><span class="big">А а</span><span class="emo">🍎</span><span class="word">Алма</span><button class="mini" id="sayLetter" aria-label="Тыңдау">🔊</button></div>
+<div id="letters" class="grid letters"></div><p id="voiceNote" class="note"></p></section>
+
+<section id="numbers" class="card reveal" style="--accent:#40C057"><div class="head"><img src="images/icon-numbers.svg" alt=""><div><h2>Санап көр!</h2><p>Суретте неше зат бар? Дұрыс санды таңда.</p></div></div>
+<div class="levels" id="numLv" role="group" aria-label="Деңгейлер"></div><p class="lvprog" id="numProg"></p><div id="countBox" class="countbox"></div><div id="numBtns" class="grid nums"></div><p id="numFb" class="fb" aria-live="polite"></p></section>
+
+<section id="colors" class="card reveal" style="--accent:#F06595"><div class="head"><img src="images/icon-colors.svg" alt=""><div><h2>Түстер мен пішіндер</h2><p id="colorQ"></p></div></div>
+<div class="levels" id="colLv" role="group" aria-label="Деңгейлер"></div><p class="lvprog" id="colProg"></p><div id="colorBtns" class="grid shapes"></div><p id="colorFb" class="fb" aria-live="polite"></p></section>
+
+<section id="animals" class="card reveal" style="--accent:#FAB005"><div class="head"><img src="images/icon-animals.svg" alt=""><div><h2>Жануарлар</h2><p>Жануарды бас — атын біл!</p></div></div>
+<div id="animalGrid" class="grid animals"></div></section>
+
+<section id="memory" class="card reveal" style="--accent:#845EF7"><div class="head"><img src="images/icon-memory.svg" alt=""><div><h2>Жұбын тап</h2><p>Екі бірдей суретті тап. Жүрістер: <b id="moves">0</b></p></div></div>
+<div class="levels" id="memLv" role="group" aria-label="Деңгейлер"></div><p class="lvprog" id="memLvInfo"></p><div id="memGrid" class="grid mem"></div><p id="memFb" class="fb" aria-live="polite"></p><button class="btn" id="memReset">🔄 Қайта ойнау</button></section>
+
+<section id="draw" class="card reveal" style="--accent:#FF922B"><div class="head"><img src="images/icon-draw.svg" alt=""><div><h2>Сурет сал және боя</h2><p>Түсті таңдап, саусағыңмен сурет сал немесе суретті боя.</p></div></div>
+<div class="drawbar"><div id="palette" class="palette"></div>
+<div class="row"><button class="chip" data-size="6">Жіңішке</button><button class="chip on" data-size="14">Орташа</button><button class="chip" data-size="28">Жуан</button><button class="chip" id="eraser">🧽 Өшіргіш</button></div>
+<div class="row"><button class="chip" data-tpl="none">Бос парақ</button><button class="chip" data-tpl="house">🏠 Үй</button><button class="chip" data-tpl="sun">☀️ Күн</button><button class="chip" data-tpl="fish">🐟 Балық</button>
+<button class="chip" id="clearCanvas">🗑️ Тазалау</button><button class="chip" id="saveCanvas">💾 Сақтау</button></div></div>
+<div class="canvaswrap"><canvas id="paint"></canvas><canvas id="outline" aria-hidden="true"></canvas></div></section>
+
+<section id="match" class="card reveal" style="--accent:#20C997"><div class="head"><img src="images/icon-match.svg" alt=""><div><h2>Кімнің тамағы?</h2><p>Тамақты сүйреп, оны жақсы көретін жануарға апар. (Немесе тамақты бас, сосын жануарды бас.)</p></div></div>
+<div class="levels" id="matchLv" role="group" aria-label="Деңгейлер"></div><p class="lvprog" id="matchLvInfo"></p><div class="matchwrap"><div id="foods" class="grid foods"></div><div id="eaters" class="grid eaters"></div></div><p id="matchFb" class="fb" aria-live="polite"></p><button class="btn" id="matchReset">🔄 Жаңа ойын</button></section>
+
+<section id="math" class="card reveal" style="--accent:#FF6B6B"><div class="head"><img src="images/icon-math.svg" alt=""><div><h2>Қосу мен азайту</h2><p>Есепті шығарып, дұрыс жауапты таңда.</p></div></div>
+<div class="levels" id="mathLv" role="group" aria-label="Деңгейлер"></div><p class="lvprog" id="mathProg"></p><div class="mathq"><div id="mathVis" class="mathvis"></div><div id="mathExpr" class="expr"></div></div><div id="mathBtns" class="grid answers"></div><p id="mathFb" class="fb" aria-live="polite"></p></section>
+
+<section id="opposites" class="card reveal" style="--accent:#5C7CFA"><div class="head"><img src="images/icon-opposites.svg" alt=""><div><h2>Қарама-қарсы сөздер</h2><p>Бұл сөздің қарама-қарсысы қайсы?</p></div></div>
+<div class="levels" id="oppLv" role="group" aria-label="Деңгейлер"></div><p class="lvprog" id="oppProg"></p><div id="oppWord" class="oppword"></div><div id="oppBtns" class="grid answers"></div><p id="oppFb" class="fb" aria-live="polite"></p></section>
+
+<section id="story" class="card reveal" style="--accent:#E64980"><div class="head"><img src="images/icon-story.svg" alt=""><div><h2>Ертегі мен тақпақ</h2><p>Бірге оқиық! Бетті ауыстыру үшін батырманы бас.</p></div></div>
+<div class="row center"><button class="chip on" data-story="0">📖 Балапан мен күн</button><button class="chip" data-story="1">🎵 Тақпақ: Күн шықты</button></div>
+<div class="book"><div id="storyPic" class="storypic"></div><p id="storyText" class="storytext"></p><div class="dots" id="storyDots"></div>
+<div class="row center"><button class="btn sm" id="prevPage">◀ Алдыңғы</button><button class="btn sm ghost" id="readPage">🔊 Оқып беру</button><button class="btn sm" id="nextPage">Келесі ▶</button></div></div></section>
+
+<section id="rewards" class="card reveal" style="--accent:#FAB005"><div class="head"><img src="images/star.svg" alt=""><div><h2>Менің жұлдыздарым</h2><p>Әр дұрыс жауап — бір жұлдыз. Жұлдыз жинап, марапат ал!</p></div></div>
+<div class="medals"><div class="medal" data-need="10">🥉<span>Қола<br>10 ⭐</span></div><div class="medal" data-need="25">🥈<span>Күміс<br>25 ⭐</span></div><div class="medal" data-need="50">🥇<span>Алтын<br>50 ⭐</span></div><div class="medal" data-need="100">🏆<span>Чемпион<br>100 ⭐</span></div></div>
+<div class="bar"><i id="rewardBar"></i></div><p id="rewardText" class="center"></p><button class="btn ghost" id="resetStars">Жұлдыздарды нөлдеу</button></section>
+
+<section id="parents" class="card reveal" style="--accent:#868E96"><div class="head"><img src="images/icon-parents.svg" alt=""><div><h2>Ата-аналарға кеңес</h2><p>Бала ойнап жүріп үйренеді.</p></div></div><ul class="tips">
+<li>⏱️ Күніне 15–20 минут ойнау жеткілікті, үзіліс жасаңыз.</li>
+<li>🗣️ Сөздерді баламен бірге дауыстап айтыңыз.</li>
+<li>🏠 Үйдегі заттарды бірге санаңыз, түстерін атаңыз.</li>
+<li>🌟 Қатесі үшін ұрыспаңыз, талпынысын мақтаңыз.</li>
+<li>📚 Кітап оқып, суреттерін талқылаңыз.</li>
+<li>🌳 Экраннан кейін далада ойнауды ұмытпаңыз!</li>
+<li>🎨 Баланың салған суретін сақтап, бірге әңгімелеңіз.</li>
+<li>🧩 Ойындарда деңгейлер бар: 5 дұрыс жауаптан кейін (немесе ойынды аяқтаған соң) келесі деңгей ашылады.</li>
+<li>🔇 Дыбысты жоғарғы оң жақтағы батырмамен өшіруге болады.</li></ul></section>
+</main>
+<footer><img src="images/chick.svg" alt="" width="36" height="36"> Балапан © 2026 · Бірге ойнап, бірге үйренейік! 💛</footer>
+<button class="totop" id="toTop" aria-label="Жоғары">↑</button>
+<canvas id="confetti" aria-hidden="true"></canvas><div id="toast" class="toast" role="status"></div>
+<script src="js/data.js"></script><script src="js/audio-map.js"></script><script src="js/app.js"></script></body></html>

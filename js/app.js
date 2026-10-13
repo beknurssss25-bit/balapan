@@ -29,7 +29,7 @@ $('voiceNote').textContent='🔊 Табиғи қазақша дауыс (офл�
 function stopSay(){sq=[];clearTimeout(sqTimer);if(player){try{player.pause()}catch(e){}player.onended=player.onerror=null;player=null}if(synth)try{synth.cancel()}catch(e){}}
 function fallback(t,next){try{if(!synth||!voice||!t){next();return}var u=new SpeechSynthesisUtterance(t.replace(/^[A-Z+\-]+:/,''));u.voice=voice;u.lang=voice.lang;u.rate=.8;u.pitch=1.1;u.onend=u.onerror=next;synth.speak(u)}catch(e){next()}}
 function clean(k){return String(k).replace(/[\u{1F000}-\u{1FFFF}\u2600-\u27BF\uFE0F\u200D]/gu,'').replace(/\s+/g,' ').trim()}
-var AV='4';
+var AV='5';
 function playNext(){if(!sq.length)return;var k=sq.shift(),f=AMAP[k]||AMAP[clean(k)],done=false;
  var next=function(){if(done)return;done=true;if(player){player.onended=player.onerror=null}player=null;sqTimer=setTimeout(playNext,120)};
  if(!f){fallback(clean(k),next);return}

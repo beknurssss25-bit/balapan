@@ -29,12 +29,18 @@ $('voiceNote').textContent='🔊 Табиғи қазақша дауыс (офл�
 function stopSay(){sq=[];clearTimeout(sqTimer);if(player){try{player.pause()}catch(e){}player.onended=player.onerror=null;player=null}if(synth)try{synth.cancel()}catch(e){}}
 function fallback(t,next){try{if(!synth||!voice||!t){next();return}var u=new SpeechSynthesisUtterance(t.replace(/^[A-Z+\-]+:/,''));u.voice=voice;u.lang=voice.lang;u.rate=.8;u.pitch=1.1;u.onend=u.onerror=next;synth.speak(u)}catch(e){next()}}
 function clean(k){return String(k).replace(/[\u{1F000}-\u{1FFFF}\u2600-\u27BF\uFE0F\u200D]/gu,'').replace(/\s+/g,' ').trim()}
-function playNext(){if(!sq.length)return;var k=sq.shift(),f=AMAP[k]||AMAP[clean(k)];
- var next=function(){if(player){player.onended=player.onerror=null}player=null;sqTimer=setTimeout(playNext,120)};
+var AV='4';
+function playNext(){if(!sq.length)return;var k=sq.shift(),f=AMAP[k]||AMAP[clean(k)],done=false;
+ var next=function(){if(done)return;done=true;if(player){player.onended=player.onerror=null}player=null;sqTimer=setTimeout(playNext,120)};
  if(!f){fallback(clean(k),next);return}
- var a=new Audio('audio/'+f);player=a;a.onended=next;a.onerror=function(){fallback(clean(k),next)};var pr=a.play();if(pr&&pr.catch)pr.catch(function(){if(player===a){player=null}})}
-/* say(key) or say([key1,key2,...]) — plays clips in sequence */
-function say(k){if(!soundOn)return;stopSay();sq=(Array.isArray(k)?k:[k]).filter(Boolean);playNext()}
+ var a=new Audio('audio/'+f+'?v='+AV);player=a;a.onended=next;
+ /* fallback to speechSynthesis ONLY if the clip never started (never in addition to it) */
+ var started=false;a.onplaying=function(){started=true};
+ a.onerror=function(){if(done||player!==a)return;if(started){next();return}a.onended=a.onerror=null;fallback(clean(k),next)};
+ var pr=a.play();if(pr&&pr.catch)pr.catch(function(){if(player===a&&!started){a.onended=a.onerror=null;player=null;done=true}})}
+/* say(key) or say([key1,key2,...]) — plays clips in sequence; identical request within 500ms is ignored (double tap / ghost click) */
+var lastSay='',lastSayT=0;
+function say(k){if(!soundOn)return;var id=JSON.stringify(k),now=Date.now();if(id===lastSay&&now-lastSayT<500)return;lastSay=id;lastSayT=now;stopSay();sq=(Array.isArray(k)?k:[k]).filter(Boolean);playNext()}
 if(synth){pickVoice();synth.onvoiceschanged=pickVoice}else pickVoice();
 function praiseKey(t){var c=clean(t);return BD.PRAISE.filter(function(p){return c.indexOf(p)===0})[0]}
 

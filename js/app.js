@@ -82,8 +82,8 @@ var A=BD.A;
 var L=$('letters'),curL=A[0];
 A.forEach(function(a){var b=el('button',null,a[0]);b.setAttribute('aria-label',a[0]+' — '+a[2]);
 b.onclick=function(){[].forEach.call(L.children,function(c){c.classList.remove('on')});b.classList.add('on');var s=$('letterShow');
-s.children[0].textContent=a[0]+' '+a[0].toLowerCase();s.children[1].textContent=a[1];s.children[2].textContent=a[2];curL=a;pop(s);sfx.tap();say(['L:'+a[0],a[2]])};L.appendChild(b)});
-$('sayLetter').onclick=function(){say(['L:'+curL[0],curL[2]])};
+s.children[0].textContent=a[0]+' '+a[0].toLowerCase();s.children[1].textContent=a[1];s.children[2].textContent=a[2];curL=a;pop(s);sfx.tap();say('L:'+a[0])};L.appendChild(b)});
+$('sayLetter').onclick=function(){say(curL[2])};
 
 /* ---------- 2. Numbers (levels: 1–5, 1–10, 6–15, 11–20) ---------- */
 var OBJ=['🍎','⭐','🐤','🎈','🌸','🍓','🐟','🚗','🦋','🍪'],cur=1,numLock=false,numOk=0,NEED=5;
